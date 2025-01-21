@@ -8,6 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
+//el encargado de hacer las llamadas a la API
 class CharactersRemoteDataSourceImp :CharactersRemoteDataSource {
 
     private val loggingInterceptor:HttpLoggingInterceptor=HttpLoggingInterceptor().apply {
