@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.jetbrains.kotlin.kapt)
 }
 
 android {
@@ -26,12 +27,18 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = "11"
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
 }
 
@@ -54,4 +61,11 @@ dependencies {
 
 // Logging Interceptor
     implementation(libs.logging.interceptor)
+
+    // Glide
+    implementation(libs.com.github.bumptech.glide)
+    kapt(libs.com.github.bumptech.compiler)
+
+    // Life-cycle
+    implementation(libs.androidx.lifecycle.viewmodel.ktx.v270)
 }

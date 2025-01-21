@@ -9,13 +9,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 //el encargado de hacer las llamadas a la API
-class CharactersRemoteDataSourceImp :CharactersRemoteDataSource {
+class CharactersRemoteDataSourceImpl: CharactersRemoteDataSource {
 
-    private val loggingInterceptor:HttpLoggingInterceptor=HttpLoggingInterceptor().apply {
+    private val loggingInterceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
-    private val client:OkHttpClient = OkHttpClient.Builder()
+    private val client: OkHttpClient = OkHttpClient.Builder()
         .connectTimeout(30, TimeUnit.SECONDS)
         .addInterceptor(loggingInterceptor)
         .build()
@@ -26,7 +26,7 @@ class CharactersRemoteDataSourceImp :CharactersRemoteDataSource {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    private val disneyApi:DisneyApi = retrofit.create(DisneyApi::class.java)
+    private val disneyApi: DisneyApi = retrofit.create(DisneyApi::class.java)
 
     override suspend fun getCharacters(): List<CharacterDto> {
         return disneyApi.getCharacters().body()?.data ?: emptyList()
