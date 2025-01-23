@@ -12,12 +12,9 @@ class CharactersRepositoryImpl(
 ) : CharactersRepository {
 
     override suspend fun getCharacters(): List<Character> {
-        val characterNames: List<String> = remoteDataSource.getCharacters().map { characterDto ->
-            characterDto.name
-        }
+        val charactersDto = remoteDataSource.getCharacters() // Recogemos los datos
 
         // Old way
-        val charactersDto = remoteDataSource.getCharacters()
         val charactersMapped = mutableListOf<Character>()
         charactersDto.forEach { characterDto: CharacterDto ->
             charactersMapped.add(
@@ -27,21 +24,12 @@ class CharactersRepositoryImpl(
                     multimedia = characterDto.films.plus(characterDto.shortFilms),
                     videoGames = characterDto.videoGames,
                     sourceUrl = characterDto.sourceUrl,
-                    image = characterDto.imageUrl
+                    image = characterDto.imageUrl ?: ""
                 )
             )
         }
 
         // Cool way / Manera guay
-        return remoteDataSource.getCharacters().map { characterDto ->
-            Character(
-                id = characterDto.id,
-                name = characterDto.name,
-                multimedia = characterDto.films.plus(characterDto.shortFilms),
-                videoGames = characterDto.videoGames,
-                sourceUrl = characterDto.sourceUrl,
-                image = characterDto.imageUrl
-            )
-        }
+        return charactersMapped
     }
 }

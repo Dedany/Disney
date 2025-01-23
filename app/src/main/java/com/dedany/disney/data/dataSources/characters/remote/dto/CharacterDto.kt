@@ -11,5 +11,5 @@ data class CharacterDto(
     val tvShows: List<String>,
     val videoGames: List<String>,
     val sourceUrl: String,
-    val imageUrl: String
+    val imageUrl: String?
 )

@@ -13,13 +13,15 @@ class MainViewModel(
     private val useCase: CharactersUseCase
 ): ViewModel() {
 
-    private val _characters: MutableLiveData<Character> = MutableLiveData<Character>()
-    val characters: LiveData<Character> = _characters
+    private val _characters: MutableLiveData<List<Character>> = MutableLiveData<List<Character>>()
+    val characters: LiveData<List<Character>> = _characters
 
-    private fun loadCharacters() {
+    fun loadCharacters() {
         viewModelScope.launch {
             try {
-                val characters: List<Character> = useCase.getCharacters()
+                val newCharacters: List<Character> = useCase.getCharacters()
+
+                _characters.value = newCharacters
             } catch (e: Exception) {
                 Log.e("ERROR", e.stackTraceToString())
             }

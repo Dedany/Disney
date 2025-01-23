@@ -29,7 +29,7 @@ class CharactersRemoteDataSourceImpl: CharactersRemoteDataSource {
     private val disneyApi: DisneyApi = retrofit.create(DisneyApi::class.java)
 
     override suspend fun getCharacters(): List<CharacterDto> {
-        return disneyApi.getCharacters().body()?.data ?: emptyList()
+        val characters = disneyApi.getCharacters().body()?.data ?: emptyList()
+        return characters
     }
-
 }

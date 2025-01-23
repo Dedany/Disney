@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
 
     private var binding: ActivityMainBinding? = null
     private var viewModel: MainViewModel? = null
-
     private var characterAdapter: CharactersListAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,10 +41,19 @@ class MainActivity : AppCompatActivity() {
         )
 
         setAdapters()
+        setObservers()
+
+        viewModel?.loadCharacters()
     }
 
     private fun setAdapters() {
         characterAdapter = CharactersListAdapter()
         binding?.recyclerCharacters?.adapter = characterAdapter
+    }
+
+    private fun setObservers() {
+        viewModel?.characters?.observe(this) { characters ->
+            characterAdapter?.submitList(characters)
+        }
     }
 }

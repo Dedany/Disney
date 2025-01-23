@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface DisneyApi {
 
-    @GET("/characters")
+    @GET("/character")
     suspend fun getCharacters(): Response<CharacterDataDto> //llamada para mostrar una vista
 }

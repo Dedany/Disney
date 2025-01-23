@@ -8,6 +8,8 @@ class CharactersUseCaseImpl(
 ): CharactersUseCase {
 
     override suspend fun getCharacters(): List<Character> {
-        return repository.getCharacters()
+        val characters = repository.getCharacters()
+        // Puede que haga lógica, pero no es el caso.
+        return characters
     }
 }
